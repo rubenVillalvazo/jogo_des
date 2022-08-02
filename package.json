@@ -1,0 +1,19 @@
+{
+  "name": "jogo_des",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rubenVillalvazo/jogo_des.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rubenVillalvazo/jogo_des/issues"
+  },
+  "homepage": "https://github.com/rubenVillalvazo/jogo_des#readme"
+}
