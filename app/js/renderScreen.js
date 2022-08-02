@@ -1,6 +1,6 @@
 "use-strict"
 
-export default function renderScreen(screen, game, requestAnimationFrame) {
+export default function renderScreen(screen, game, requestAnimationFrame, currentPlayerId) {
     const context = screen.getContext('2d')
     context.fillStyle = '#fff'
     context.clearRect(0, 0, 10, 10)
@@ -15,8 +15,16 @@ export default function renderScreen(screen, game, requestAnimationFrame) {
         context.fillStyle = 'green'
         context.fillRect(fruit.x, fruit.y, 1, 1)
     }
+
+    const currentPlayer = game.state.players[currentPlayerId]
+
+    if (currentPlayer) {
+        context.fillStyle = "#ff571f"
+        context.fillRect(currentPlayer.x, currentPlayer.y, 1, 1)
+    }
+
     requestAnimationFrame(() => {
-        renderScreen(screen, game, requestAnimationFrame)
+        renderScreen(screen, game, requestAnimationFrame, currentPlayerId)
     })
 }
 

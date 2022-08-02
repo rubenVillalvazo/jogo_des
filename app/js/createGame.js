@@ -10,21 +10,49 @@ const CreateGame = () => {
         }
     }
 
+    const observers = []
+
+    const subscribe = (observerFunction) => {
+        observers.push(observerFunction)
+    }
+
+    const notifyAll = (command) => {
+        for (const observerFunction of observers) {
+            observerFunction(command)
+        }
+    }
+
+    const setState = (newState) => {
+        Object.assign(state, newState)
+    }
+
     const addPlayer = (command) => {
         const playerId = command.playerId
-        const playerX = command.playerX
-        const playerY = command.playerY
+        const playerX = 'playerX' in command ? command.playerX : Math.floor(Math.random() * state.screen.width)
+        const playerY = 'playerY' in command ? command.playerY : Math.floor(Math.random() * state.screen.height)
 
         state.players[playerId] = {
             x: playerX,
             y: playerY
         }
+
+        notifyAll({
+            type: 'add-player',
+            playerId: playerId,
+            playerX: playerX,
+            playerY: playerY
+        })
     }
 
     const removePlayer = (command) => {
         const playerId = command.playerId
 
         delete state.players[playerId]
+
+        notifyAll({
+            type: 'remove-player',
+            playerId: playerId,
+        })
     }
 
     const addFruit = (command) => {
@@ -48,6 +76,8 @@ const CreateGame = () => {
         const keyPressed = command.keyPressed
         const playerId = command.playerId
         const player = state.players[command.playerId]
+
+        notifyAll(command)
 
         const acceptedMovements = {
             ArrowUp: function (player) {
@@ -101,7 +131,9 @@ const CreateGame = () => {
         removePlayer,
         addFruit,
         removeFruit,
-        state
+        state,
+        setState,
+        subscribe
     }
 }
 
