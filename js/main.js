@@ -1,8 +1,13 @@
+"use strict"
+
 /*
 **************************************************************************************************************
 CONFIGURAÇÃO
 **************************************************************************************************************
 */
+
+import keyboardListener from './keyboardListener.js'
+
 const screen = document.getElementById('screen')
 const context = screen.getContext('2d')
 
@@ -123,41 +128,8 @@ USER INPUTS
 **************************************************************************************************************
 */
 
-const createKeyboardListener = () => {
-    const state = {
-        observers: []
-    }
-
-    const subscribe = (observerFunction) => {
-        state.observers.push(observerFunction)
-    }
-
-    const notifyAll = (command) => {
-        for (const observerFunction of state.observers) {
-            observerFunction(command)
-        }
-    }
-
-    const handleKeyDown = (event) => {
-        const keyPressed = event.key
-
-        const command = {
-            playerId: 'player1',
-            keyPressed
-        }
-
-        notifyAll(command)
-    }
-
-    document.addEventListener('keydown', handleKeyDown)
-
-    return {
-        subscribe
-    }
-}
-
-const keyboardListener = createKeyboardListener()
-keyboardListener.subscribe(game.movePlayer)
+const pressedKeyListener = keyboardListener
+pressedKeyListener.subscribe(game.movePlayer)
 
 /*
 **************************************************************************************************************
