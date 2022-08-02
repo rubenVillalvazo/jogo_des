@@ -1,6 +1,6 @@
 "use strict"
 
-const createKeyboardListener = () => {
+export default function createKeyboardListener(document) {
     const state = {
         observers: []
     }
@@ -32,7 +32,3 @@ const createKeyboardListener = () => {
         subscribe
     }
 }
-
-const keyboardListener = createKeyboardListener()
-
-export default keyboardListener
