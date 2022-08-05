@@ -10,6 +10,7 @@ const sockets = new Server(server)
 app.use(express.static('app'))
 
 const game = createGame
+game.start()
 
 game.subscribe((command) => {
     console.log(`> Emitting ${command.type}`)
@@ -33,6 +34,7 @@ sockets.on('connection', (socket) => {
 
     socket.on('disconnect', () => {
         game.removePlayer({ playerId: playerId })
+        console.log(`> Player disconnected: ${playerId}`)
     })
 })
 
